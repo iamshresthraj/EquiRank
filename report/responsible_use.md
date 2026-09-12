@@ -1,4 +1,4 @@
-# Responsible Use Statement — ED-01: Fair Student-Support Prioritization
+# EquiRank — Responsible Use Statement (ED-01: Fair Student-Support Prioritization)
 
 ## The Proxy Problem: G3 < 10 as "Need"
 

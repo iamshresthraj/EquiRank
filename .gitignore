@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 outputs/test_inference_input.csv
 .DS_Store
+details.md

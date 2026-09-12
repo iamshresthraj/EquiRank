@@ -1,4 +1,4 @@
-# ED-01: Fair Student-Support Prioritization — Master Judges & Presentation Guide
+# EquiRank — Fair Student-Support Prioritization (ED-01) — Master Judges & Presentation Guide
 
 > **Project Goal**: Rank students needing academic intervention ($G3 < 10$) under a strict 20% budget constraint ($k = \lceil 0.20 \times N \rceil$) while minimizing recall disparities across protected demographic groups (`sex` and `school`).
 

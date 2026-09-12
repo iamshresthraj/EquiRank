@@ -1,4 +1,4 @@
-# ED-01: Fair Student-Support Prioritization
+# EquiRank — Fair Student-Support Prioritization (ED-01)
 
 A machine learning system that ranks students by predicted "support-needed" probability, selects the top 20% for limited school support resources, and minimizes unfairness in recall across protected groups (sex, school).
 
