@@ -113,11 +113,11 @@ def multi_seed_stability(X, y, protected, n_seeds=N_STABILITY_SEEDS):
         briers = [r["brier"] for r in seed_results[name]]
 
         print(f"\n  Model: {name}")
-        print(f"    Composite : {np.mean(scores):.2f} ± {np.std(scores):.2f}  "
-              f"(range {np.min(scores):.2f}–{np.max(scores):.2f})")
-        print(f"    Recall    : {np.mean(recalls):.4f} ± {np.std(recalls):.4f}")
-        print(f"    Fair. Gap : {np.mean(gaps):.4f} ± {np.std(gaps):.4f}")
-        print(f"    Brier     : {np.mean(briers):.4f} ± {np.std(briers):.4f}")
+        print(f"    Composite : {np.mean(scores):.2f} +/- {np.std(scores):.2f}  "
+              f"(range {np.min(scores):.2f}-{np.max(scores):.2f})")
+        print(f"    Recall    : {np.mean(recalls):.4f} +/- {np.std(recalls):.4f}")
+        print(f"    Fair. Gap : {np.mean(gaps):.4f} +/- {np.std(gaps):.4f}")
+        print(f"    Brier     : {np.mean(briers):.4f} +/- {np.std(briers):.4f}")
 
     return seed_results
 
@@ -159,7 +159,7 @@ def train_and_select_best(X, y, protected):
             best_name = name
             best_pipeline = pipe
 
-    print(f"\n  ✓ Best model: {best_name}  (composite = {best_score:.2f})")
+    print(f"\n  [+] Best model: {best_name}  (composite = {best_score:.2f})")
 
     return best_pipeline, best_name, X_train, X_val, y_train, y_val, prot_train, prot_val
 
@@ -193,7 +193,7 @@ def calibrate_model(best_pipeline, best_name, X_train, X_val, y_train, y_val, pr
 
     # Check if calibration helped
     if post_results['brier'] < pre_results['brier']:
-        print("  ✓ Calibration improved Brier score — using calibrated model.")
+        print("  [+] Calibration improved Brier score -- using calibrated model.")
         # Verify recall and fairness not materially hurt
         recall_diff = post_results['overall_recall'] - pre_results['overall_recall']
         gap_diff = post_results['fairness_gap'] - pre_results['fairness_gap']
@@ -201,7 +201,7 @@ def calibrate_model(best_pipeline, best_name, X_train, X_val, y_train, y_val, pr
         print(f"  Gap change:     {gap_diff:+.4f}")
         return calibrated, post_results
     else:
-        print("  ✗ Calibration did not improve Brier — keeping uncalibrated model.")
+        print("  [-] Calibration did not improve Brier -- keeping uncalibrated model.")
         return best_pipeline, pre_results
 
 
@@ -251,17 +251,17 @@ def main():
     fairness_df = build_fairness_table(final_results)
     fairness_path = os.path.join(OUTPUTS_DIR, "fairness_table.csv")
     fairness_df.to_csv(fairness_path, index=False)
-    print(f"\n  ✓ Saved fairness_table.csv to {fairness_path}")
+    print(f"\n  [+] Saved fairness_table.csv to {fairness_path}")
 
     # 9. Save final pipeline
     os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
     joblib.dump(final_pipeline, MODEL_PATH)
-    print(f"  ✓ Saved pipeline to {MODEL_PATH}")
+    print(f"  [+] Saved pipeline to {MODEL_PATH}")
 
     # 10. Generate ranking and selection on full validation set
     generate_outputs(final_pipeline, X_val, y_val, prot_val)
 
-    print("\n  ✓ Training pipeline complete!")
+    print("\n  [+] Training pipeline complete!")
     return final_pipeline, final_results
 
 
@@ -283,7 +283,7 @@ def generate_outputs(pipeline, X_val, y_val, prot_val):
 
     ranking_path = os.path.join(OUTPUTS_DIR, "ranking.csv")
     ranking_df.to_csv(ranking_path, index=False)
-    print(f"  ✓ Saved ranking.csv ({len(ranking_df)} rows)")
+    print(f"  [+] Saved ranking.csv ({len(ranking_df)} rows)")
 
     # Selected students (top-20%)
     selected_df = ranking_df.head(k).copy()
@@ -291,7 +291,7 @@ def generate_outputs(pipeline, X_val, y_val, prot_val):
 
     selected_path = os.path.join(OUTPUTS_DIR, "selected_students.csv")
     selected_df.to_csv(selected_path, index=False)
-    print(f"  ✓ Saved selected_students.csv ({len(selected_df)} rows)")
+    print(f"  [+] Saved selected_students.csv ({len(selected_df)} rows)")
 
 
 if __name__ == "__main__":

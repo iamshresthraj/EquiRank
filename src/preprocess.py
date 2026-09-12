@@ -126,4 +126,4 @@ if __name__ == "__main__":
     # Verify G3 is NOT in the features
     assert "G3" not in X.columns, "G3 must not be in features!"
     assert TARGET_COL not in X.columns, "support_needed must not be in features!"
-    print("\n✓ G3 and support_needed correctly excluded from features.")
+    print("\n[+] G3 and support_needed correctly excluded from features.")

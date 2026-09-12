@@ -85,7 +85,7 @@ def predict(input_path: str, model_path: str, output_dir: str, id_col: str = "id
 
     # Validate
     validate_input(df, id_col)
-    print("  ✓ Input validation passed (no forbidden columns)")
+    print("  [+] Input validation passed (no forbidden columns)")
 
     # Extract features
     X = df[FEATURE_COLS].copy()
@@ -114,7 +114,7 @@ def predict(input_path: str, model_path: str, output_dir: str, id_col: str = "id
     os.makedirs(output_dir, exist_ok=True)
     ranking_path = os.path.join(output_dir, "ranking.csv")
     ranking_df.to_csv(ranking_path, index=False)
-    print(f"  ✓ Saved ranking.csv ({len(ranking_df)} rows)")
+    print(f"  [+] Saved ranking.csv ({len(ranking_df)} rows)")
 
     # Selected students (top-20%)
     selected_df = ranking_df.head(k).copy()
@@ -122,7 +122,7 @@ def predict(input_path: str, model_path: str, output_dir: str, id_col: str = "id
 
     selected_path = os.path.join(output_dir, "selected_students.csv")
     selected_df.to_csv(selected_path, index=False)
-    print(f"  ✓ Saved selected_students.csv ({len(selected_df)} rows, top-20%)")
+    print(f"  [+] Saved selected_students.csv ({len(selected_df)} rows, top-20%)")
 
     print(f"\n  Probability summary:")
     print(f"    Mean:   {probs.mean():.4f}")
@@ -131,7 +131,7 @@ def predict(input_path: str, model_path: str, output_dir: str, id_col: str = "id
     print(f"    Max:    {probs.max():.4f}")
     print(f"    Budget: k = {k} out of {n}")
 
-    print("\n  ✓ Inference complete!")
+    print("\n  [+] Inference complete!")
     return ranking_df, selected_df
 
 

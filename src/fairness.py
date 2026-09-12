@@ -278,7 +278,7 @@ def plot_pareto(all_results, output_path):
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches="tight")
     plt.close()
-    print(f"  ✓ Saved Pareto tradeoff chart to {output_path}")
+    print(f"  [+] Saved Pareto tradeoff chart to {output_path}")
 
 
 def diagnose_and_mitigate(calibrated_pipeline, X, y, protected,
